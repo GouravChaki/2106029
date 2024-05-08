@@ -89,8 +89,8 @@ export default function Products() {
   const [itemsPerPage] = useState(5);
 
   useEffect(() => {
-    // Fetch products from API
-    axios.get('API_ENDPOINT_URL')
+//here based on the filter, the parameter will be selected (phone here by default)
+    axios.get('http://localhost:5000/categories/Phone/products?n=10&page=1&sortBy=rating&sortOrder=asc')
       .then(response => {
         setProducts(response.data);
       })
@@ -99,7 +99,6 @@ export default function Products() {
       });
   }, []);
 
-  // Filter products based on search term
   useEffect(() => {
     const filtered = products.filter(product =>
       product.productName.toLowerCase()
