@@ -1,7 +1,8 @@
 const axios = require("axios");
 const { customSort } = require("./functions/functions");
+
 const bearerToken =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzE1MTUwNjUxLCJpYXQiOjE3MTUxNTAzNTEsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6IjViM2E2MmQxLTI1YzItNDgyMy04MTQ4LWRjYmQ4MjQzYjYyMSIsInN1YiI6ImdvdXJhdmNoYWtpMTIzQGdtYWlsLmNvbSJ9LCJjb21wYW55TmFtZSI6IktJSVQsIEJodWJhbmVzd2FyIiwiY2xpZW50SUQiOiI1YjNhNjJkMS0yNWMyLTQ4MjMtODE0OC1kY2JkODI0M2I2MjEiLCJjbGllbnRTZWNyZXQiOiJ3aWlPWHZFUFNZVWJYQXNBIiwib3duZXJOYW1lIjoiR291cmF2IENoYWtpIiwib3duZXJFbWFpbCI6ImdvdXJhdmNoYWtpMTIzQGdtYWlsLmNvbSIsInJvbGxObyI6IjIxMDYwMjkifQ.c6ACvmYU5yZsSJQ26pD4LeVpnkJsSKwbG53Y1JZFFic";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzE1MTUzOTQ0LCJpYXQiOjE3MTUxNTM2NDQsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijk3ZmQ0NTc0LWM5MmUtNGUyZS05OTRhLTNmYmYxY2U2Zjg3YiIsInN1YiI6ImdvdXJhdmNoYWtpMTIzQGdtYWlsLmNvbSJ9LCJjb21wYW55TmFtZSI6IktJSVQsIEJodWJhbmVzd2FyIiwiY2xpZW50SUQiOiI5N2ZkNDU3NC1jOTJlLTRlMmUtOTk0YS0zZmJmMWNlNmY4N2IiLCJjbGllbnRTZWNyZXQiOiJJeWVVbkpOQ3Zub2xsQlNEIiwib3duZXJOYW1lIjoiR291cmF2IENoYWtpIiwib3duZXJFbWFpbCI6ImdvdXJhdmNoYWtpMTIzQGdtYWlsLmNvbSIsInJvbGxObyI6IjIxMDYwMjkifQ.qhPX8QdYjZS62xEbHybemsn4Zu70sBkBlW5YM0_ENHo";
 var url = "";
 module.exports = async (req, res) => {
   try {
@@ -30,7 +31,7 @@ module.exports = async (req, res) => {
           params: {
             top: endIndex,
             minPrice: 1,
-            maxPrice: 10000,
+            maxPrice: 1000000000000000,
           },
           headers: {
             Authorization: `Bearer ${bearerToken}`,
@@ -40,6 +41,7 @@ module.exports = async (req, res) => {
         return response.data.map((product) => ({
           ...product,
           companyId: company,
+          uniqueId: company+product.price+product.rating+product.discount
         }));
       } catch (error) {
         console.log(error);
